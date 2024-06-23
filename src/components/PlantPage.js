@@ -27,11 +27,19 @@ function PlantPage() {
     setPlantsList([...plantsList, newPlant])
   }
 
+  function handleDeletePlant(id) {
+    const updatedPlantList = plantsList.filter((plant) => plant.id !== id)
+    setPlantsList(updatedPlantList)
+  }
+
   return (
     <main>
       <NewPlantForm onHandleSubmitForm={handleSubmitForm} />
       <Search onSearch={handlePlantSearch} />
-      <PlantList plantsList={filteredPlants} />
+      <PlantList
+        plantsList={filteredPlants}
+        onPlantDelete={handleDeletePlant}
+      />
     </main>
   )
 }

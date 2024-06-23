@@ -1,10 +1,21 @@
 import React, { useState } from "react"
 
-function PlantCard({ plant: { id, name, image, price } }) {
+function PlantCard({ plant: { id, name, image, price }, onPlantDelete }) {
   const [isInStock, setIsInStock] = useState(true)
+
+  console.log(onPlantDelete)
 
   function handleInStock() {
     setIsInStock(!isInStock)
+  }
+
+  function handleDeleteClick() {
+    fetch(`http://localhost:6001/plants/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .catch((error) => console.error("Fetch error:", error))
+    onPlantDelete(id)
   }
 
   return (
@@ -19,6 +30,7 @@ function PlantCard({ plant: { id, name, image, price } }) {
       ) : (
         <button onClick={handleInStock}>Out of Stock</button>
       )}
+      <button onClick={handleDeleteClick}>Delete Plant</button>
     </li>
   )
 }

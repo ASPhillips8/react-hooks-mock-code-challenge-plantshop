@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react"
 import PlantCard from "./PlantCard"
 
-function PlantList() {
-  const [plantsList, setPlantsList] = useState([])
-
-  useEffect(() => {
-    fetch("http://localhost:6001/plants")
-      .then((response) => response.json())
-      .then((plantData) => setPlantsList(plantData))
-  }, [])
-
+function PlantList({ plantsList }) {
   const displayPlants = plantsList.map((plant) => {
     return <PlantCard key={plant.id} plant={plant} />
   })

@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import PlantCard from "./PlantCard"
 
-function PlantList({ plantsList, onPlantDelete }) {
+function PlantList({ plantsList, onPlantDelete, onUpdatePrice }) {
   const displayPlants = plantsList.map((plant) => {
     return (
-      <PlantCard key={plant.id} plant={plant} onPlantDelete={onPlantDelete} />
+      <PlantCard
+        key={plant.id}
+        plant={plant}
+        onPlantDelete={onPlantDelete}
+        onUpdatePrice={onUpdatePrice}
+      />
     )
   })
 

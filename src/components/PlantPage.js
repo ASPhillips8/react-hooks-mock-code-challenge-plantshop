@@ -11,8 +11,6 @@ function PlantPage() {
     plant.name.toLowerCase().includes(searchInput.toLowerCase())
   )
 
-  console.log(filteredPlants)
-
   useEffect(() => {
     fetch("http://localhost:6001/plants")
       .then((response) => response.json())
@@ -27,6 +25,13 @@ function PlantPage() {
     setPlantsList([...plantsList, newPlant])
   }
 
+  function handlePriceUpdate(updatedPlant) {
+    const updatedPlantList = plantsList.map((plant) => {
+      return plant.id === updatedPlant.id ? updatedPlant : plant
+    })
+    setPlantsList(updatedPlantList)
+  }
+
   function handleDeletePlant(id) {
     const updatedPlantList = plantsList.filter((plant) => plant.id !== id)
     setPlantsList(updatedPlantList)
@@ -39,6 +44,7 @@ function PlantPage() {
       <PlantList
         plantsList={filteredPlants}
         onPlantDelete={handleDeletePlant}
+        onUpdatePrice={handlePriceUpdate}
       />
     </main>
   )

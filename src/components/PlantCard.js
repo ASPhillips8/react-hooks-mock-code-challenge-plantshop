@@ -1,9 +1,12 @@
 import React, { useState } from "react"
+import PriceChange from "./PriceChange"
 
-function PlantCard({ plant: { id, name, image, price }, onPlantDelete }) {
+function PlantCard({
+  plant: { id, name, image, price },
+  onPlantDelete,
+  onUpdatePrice,
+}) {
   const [isInStock, setIsInStock] = useState(true)
-
-  console.log(onPlantDelete)
 
   function handleInStock() {
     setIsInStock(!isInStock)
@@ -23,6 +26,7 @@ function PlantCard({ plant: { id, name, image, price }, onPlantDelete }) {
       <img src={image} alt={name} />
       <h4>{name}</h4>
       <p>Price: {price}</p>
+      <PriceChange id={id} currentPrice={price} onUpdatePrice={onUpdatePrice} />
       {isInStock ? (
         <button className="primary" onClick={handleInStock}>
           In Stock

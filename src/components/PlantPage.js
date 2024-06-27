@@ -13,9 +13,13 @@ function PlantPage() {
       .catch((error) => console.error("Fetch error:", error))
   }, [])
 
+  function handleNewPlantSubmit(newPlant) {
+    setPlants([...plants, newPlant])
+  }
+
   return (
     <main>
-      <NewPlantForm />
+      <NewPlantForm onFormSubmit={handleNewPlantSubmit} />
       <Search />
       <PlantList plants={plants} />
     </main>

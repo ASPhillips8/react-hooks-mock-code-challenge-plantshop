@@ -1,6 +1,7 @@
 import React, { useState } from "react"
+import PlantPrice from "./PlantPrice"
 
-function PlantCard({ plant, onDelete }) {
+function PlantCard({ plant, onDelete, onPriceChange }) {
   const { id, name, image, price } = plant
   const [isINStock, setIsInStock] = useState(true)
 
@@ -21,7 +22,7 @@ function PlantCard({ plant, onDelete }) {
     <li className="card">
       <img src={image} alt={name} />
       <h4>{name}</h4>
-      <p>Price: {price}</p>
+      <PlantPrice price={price} id={id} onPriceChange={onPriceChange} />
       {isINStock ? (
         <button className="primary" onClick={handleStockClick}>
           In Stock

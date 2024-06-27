@@ -4,7 +4,7 @@ function NewPlantForm({ onFormSubmit }) {
   const [formData, setFormData] = useState({
     image: "",
     name: "",
-    price: "",
+    price: 0,
   })
 
   function handleFormInput(event) {

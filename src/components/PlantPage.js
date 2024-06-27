@@ -7,6 +7,9 @@ function PlantPage() {
   const [plants, setPlants] = useState([])
   const [search, setSearch] = useState("")
   const [sortCategory, setSortCategory] = useState("")
+  // const [fetchTrigger, setFetchTrigger] = useState(false)
+
+  // const toggleFetchTrigger = () => setFetchTrigger(!fetchTrigger)
 
   useEffect(() => {
     fetch("http://localhost:6001/plants")
@@ -21,6 +24,13 @@ function PlantPage() {
 
   function handlePlantDelete(id) {
     const updatedPlants = plants.filter((plant) => plant.id !== id)
+    setPlants(updatedPlants)
+  }
+
+  function handleNewPrice(id, newPrice) {
+    const updatedPlants = plants.map((plant) =>
+      plant.id === id ? { ...plant, price: newPrice } : plant
+    )
     setPlants(updatedPlants)
   }
 
@@ -45,6 +55,7 @@ function PlantPage() {
       <PlantList
         plants={sortedAndFilteredPlants()}
         onDelete={handlePlantDelete}
+        onPriceChange={handleNewPrice}
       />
     </main>
   )

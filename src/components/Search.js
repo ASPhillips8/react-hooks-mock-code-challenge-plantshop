@@ -1,6 +1,7 @@
 import React from "react"
+import Sort from "./Sort"
 
-function Search({ onSearch }) {
+function Search({ onSearch, onSort }) {
   return (
     <div className="searchbar">
       <label htmlFor="search">Search Plants:</label>
@@ -10,6 +11,7 @@ function Search({ onSearch }) {
         placeholder="Type a name to search..."
         onChange={(event) => onSearch(event.target.value)}
       />
+      <Sort onSort={onSort} />
     </div>
   )
 }

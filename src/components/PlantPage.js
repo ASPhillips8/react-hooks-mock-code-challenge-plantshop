@@ -6,6 +6,7 @@ import Search from "./Search"
 function PlantPage() {
   const [plants, setPlants] = useState([])
   const [search, setSearch] = useState("")
+  const [sortCategory, setSortCategory] = useState("")
 
   useEffect(() => {
     fetch("http://localhost:6001/plants")
@@ -27,11 +28,24 @@ function PlantPage() {
     plant.name.toLowerCase().includes(search.toLocaleLowerCase())
   )
 
+  const sortedAndFilteredPlants = () => {
+    if (sortCategory === "name") {
+      return filteredPlants.sort((a, b) => a.name.localeCompare(b.name))
+    } else if (sortCategory === "price") {
+      return filteredPlants.sort((a, b) => a.price - b.price)
+    } else {
+      return filteredPlants
+    }
+  }
+
   return (
     <main>
       <NewPlantForm onFormSubmit={handleNewPlantSubmit} />
-      <Search onSearch={setSearch} />
-      <PlantList plants={filteredPlants} onDelete={handlePlantDelete} />
+      <Search onSearch={setSearch} onSort={setSortCategory} />
+      <PlantList
+        plants={sortedAndFilteredPlants()}
+        onDelete={handlePlantDelete}
+      />
     </main>
   )
 }

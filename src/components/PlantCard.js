@@ -14,7 +14,7 @@ function PlantCard({ plant, onDelete, onPriceChange }) {
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then(() => onDelete(id))
+      .then(() => onDelete())
       .catch((error) => console.error("Fetch error:", error))
   }
 

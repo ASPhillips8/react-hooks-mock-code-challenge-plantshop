@@ -17,7 +17,7 @@ function PlantPrice({ id, price, onPriceChange }) {
       body: JSON.stringify({ price: Number(newPrice) }),
     })
       .then((response) => response.json())
-      .then((newPriceData) => onPriceChange(id, newPriceData.price))
+      .then(() => onPriceChange())
       .catch((error) => console.error("Fetch error:", error))
   }
 

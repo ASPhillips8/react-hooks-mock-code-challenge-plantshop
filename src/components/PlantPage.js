@@ -7,32 +7,9 @@ function PlantPage() {
   const [plants, setPlants] = useState([])
   const [search, setSearch] = useState("")
   const [sortCategory, setSortCategory] = useState("")
-  // const [fetchTrigger, setFetchTrigger] = useState(false)
+  const [fetchTrigger, setFetchTrigger] = useState(false)
 
-  // const toggleFetchTrigger = () => setFetchTrigger(!fetchTrigger)
-
-  useEffect(() => {
-    fetch("http://localhost:6001/plants")
-      .then((response) => response.json())
-      .then((plantData) => setPlants(plantData))
-      .catch((error) => console.error("Fetch error:", error))
-  }, [])
-
-  function handleNewPlantSubmit(newPlant) {
-    setPlants([...plants, newPlant])
-  }
-
-  function handlePlantDelete(id) {
-    const updatedPlants = plants.filter((plant) => plant.id !== id)
-    setPlants(updatedPlants)
-  }
-
-  function handleNewPrice(id, newPrice) {
-    const updatedPlants = plants.map((plant) =>
-      plant.id === id ? { ...plant, price: newPrice } : plant
-    )
-    setPlants(updatedPlants)
-  }
+  const toggleFetchTrigger = () => setFetchTrigger(!fetchTrigger)
 
   const filteredPlants = plants.filter((plant) =>
     plant.name.toLowerCase().includes(search.toLocaleLowerCase())
@@ -48,14 +25,21 @@ function PlantPage() {
     }
   }
 
+  useEffect(() => {
+    fetch("http://localhost:6001/plants")
+      .then((response) => response.json())
+      .then((plantData) => setPlants(plantData))
+      .catch((error) => console.error("Fetch error:", error))
+  }, [fetchTrigger])
+
   return (
     <main>
-      <NewPlantForm onFormSubmit={handleNewPlantSubmit} />
+      <NewPlantForm onFormSubmit={toggleFetchTrigger} />
       <Search onSearch={setSearch} onSort={setSortCategory} />
       <PlantList
         plants={sortedAndFilteredPlants()}
-        onDelete={handlePlantDelete}
-        onPriceChange={handleNewPrice}
+        onDelete={toggleFetchTrigger}
+        onPriceChange={toggleFetchTrigger}
       />
     </main>
   )
